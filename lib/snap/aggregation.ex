@@ -25,7 +25,7 @@ defmodule Snap.Aggregation do
     }
   end
 
-  def new(response, include_raw_response?: true) do
+  def new(response, include_raw_aggregations?: true) do
     %__MODULE__{
       raw_response: response
     }

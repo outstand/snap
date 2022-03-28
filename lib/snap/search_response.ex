@@ -48,9 +48,15 @@ defmodule Snap.SearchResponse do
     Map.new(aggregations, fn {key, value} -> {key, Snap.Aggregation.new(value)} end)
   end
 
-  def build_aggregations(aggregations, [only_raw_response?: only_raw_response?] = _response_opts) when is_map(aggregations) do
-    if only_raw_response? do
-      Snap.Aggregation.new(%{raw_response: aggregations}, include_raw_response?: only_raw_response?)
+  def build_aggregations(
+        aggregations,
+        [include_raw_aggregations?: include_raw_aggregations?] = _response_opts
+      )
+      when is_map(aggregations) do
+    if include_raw_aggregations? do
+      Snap.Aggregation.new(%{raw_response: aggregations},
+        include_raw_aggregations?: include_raw_aggregations?
+      )
     end
   end
 

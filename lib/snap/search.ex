@@ -31,7 +31,7 @@ defmodule Snap.Search do
   """
   def search(cluster, index_or_alias, query, params \\ [], headers \\ [], opts \\ []) do
     case cluster.post("/#{index_or_alias}/_search", query, params, headers, opts) do
-      {:ok, response} -> {:ok, SearchResponse.new(response, (opts.response_opts or []))}
+      {:ok, response} -> {:ok, SearchResponse.new(response, opts)}
       err -> err
     end
   end
