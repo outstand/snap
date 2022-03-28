@@ -18,6 +18,18 @@ defmodule Snap.SearchResponse do
     }
   end
 
+  def new(response, response_opts) do
+    %__MODULE__{
+      took: response["took"],
+      timed_out: response["timed_out"],
+      shards: response["_shards"],
+      hits: Snap.Hits.new(response["hits"]),
+      aggregations: build_aggregations(response["aggregations"], response_opts),
+      scroll_id: response["_scroll_id"],
+      pit_id: response["pit_id"]
+    }
+  end
+
   @type t :: %__MODULE__{
           took: integer(),
           timed_out: boolean(),
@@ -34,6 +46,12 @@ defmodule Snap.SearchResponse do
 
   def build_aggregations(aggregations) when is_map(aggregations) do
     Map.new(aggregations, fn {key, value} -> {key, Snap.Aggregation.new(value)} end)
+  end
+
+  def build_aggregations(aggregations, [only_raw_response?: only_raw_response?] = _response_opts) when is_map(aggregations) do
+    if only_raw_response? do
+      Snap.Aggregation.new(%{raw_response: aggregations}, include_raw_response?: only_raw_response?)
+    end
   end
 
   defimpl Enumerable do

@@ -66,7 +66,18 @@ defmodule Snap.SearchResponseTest do
              doc_count: 9
            }
 
-    assert response.aggregations["histogram"] == %Snap.Aggregation{
+    # assert response.aggregations["histogram"] == %Snap.Aggregation{
+    #          buckets: [
+    #            %{
+    #              "doc_count" => 10,
+    #              "key_as_string" => "2022-03-12T21:00:00.000Z",
+    #              "key" => 1_647_118_800_000
+    #            }
+    #          ],
+    #          interval: "30m"
+    #        }
+
+    assert response.aggregations["nested_histogram"] == %Snap.Aggregation{
              buckets: [
                %{
                  "doc_count" => 10,

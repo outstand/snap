@@ -11,6 +11,7 @@ defmodule Snap.Aggregation do
     interval
     sum_other_doc_count
     value
+    raw_response
   ]a
 
   def new(response) do
@@ -21,6 +22,12 @@ defmodule Snap.Aggregation do
       interval: response["interval"],
       sum_other_doc_count: response["sum_other_doc_count"],
       value: response["value"]
+    }
+  end
+
+  def new(response, include_raw_response?: true) do
+    %__MODULE__{
+      raw_response: response
     }
   end
 

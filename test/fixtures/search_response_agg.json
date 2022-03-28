@@ -31,6 +31,19 @@
         }
       ],
       "interval": "30m"
+    },
+    "nested_histogram": {
+      "doc_count": 2,
+      "foo_histogram": {
+        "buckets": [
+          {
+            "doc_count": 2,
+            "key": 1647118800001,
+            "key_as_string": "2022-01-01T01:00:00.000Z"
+          }
+        ],
+        "interval": "30m"
+      }
     }
   },
   "hits": {
